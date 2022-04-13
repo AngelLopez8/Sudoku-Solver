@@ -15,13 +15,28 @@ namespace Sudoku {
 
             // Overloaded Constructor (number, x coordinate, y coordinate)
             Box(int, int, int);
-            
+
             // Draw Box onto Screen
             void draw(sf::RenderWindow&);
 
+            // Return current value
+            int get_value();
+
+            // Change value
+            void set_value(int);
+
+            // Set hovering status
+            void set_hovering(bool);
+
+            // Overloaded Output Operator
+            friend std::ostream& operator<<(std::ostream&, const Box&);
+
         private:
             int num;
+            int xCoordinate, yCoordinate;
+
             sf::RectangleShape box;
+            bool hovering;
     };
 }
 

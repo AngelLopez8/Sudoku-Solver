@@ -14,7 +14,9 @@ namespace Sudoku {
             sf::VideoMode(width, height), 
             title, 
             sf::Uint32(sf::Style::Titlebar | sf::Style::Close)
-        ) {}
+        ) {
+        world = World();
+    }
 
     /**
      * @brief Runs Game Loop
@@ -52,20 +54,15 @@ namespace Sudoku {
                 close();
                 break;
             case sf::Event::KeyReleased:
-                if (event.key.code == sf::Keyboard::Space)
-                    std::cout << world;
-                if (event.key.code == sf::Keyboard::Enter) {
-                    std::cout << world.solved() << std::endl;
-                }
-                if (event.key.code == sf::Keyboard::Up)
-                    world.move_up();
-                if (event.key.code == sf::Keyboard::Down)
-                    world.move_down();
                 if (event.key.code == sf::Keyboard::Right)
-                    world.move_right();
-                if (event.key.code == sf::Keyboard::Left)
-                    world.move_left();
-                if (event.key.code == sf::Keyboard::Num1)
+                    world.right_hover();
+                else if (event.key.code == sf::Keyboard::Left)
+                    world.left_hover();
+                else if (event.key.code == sf::Keyboard::Up)
+                    world.up_hover();
+                else if (event.key.code == sf::Keyboard::Down)
+                    world.down_hover();
+                else if (event.key.code == sf::Keyboard::Num1)
                     world.change_number(1);
                 else if (event.key.code == sf::Keyboard::Num2)
                     world.change_number(2);
@@ -83,7 +80,7 @@ namespace Sudoku {
                     world.change_number(8);
                 else if (event.key.code == sf::Keyboard::Num9)
                     world.change_number(9);
-                break;
+                break;    
             default:
                 break;
             }
