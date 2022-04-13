@@ -19,9 +19,9 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Draws Block onto Screen
      * 
-     * @param window 
+     * @param sf::RenderWindow& Window Object 
      */
     void Block::draw(sf::RenderWindow& window) {
         for (int row = 0; row < DIM; row++)
@@ -30,42 +30,40 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Returns Number value of box at given row & col
      * 
-     * @param row 
-     * @param col 
-     * @return int 
+     * @param int row 
+     * @param int column 
+     * @return box number value 
      */
     int Block::get_value(int row, int col) {
         return boxes[row][col].get_value();
     }
 
     /**
-     * @brief 
+     * @brief Change specific Box Number value to passed in number
      * 
-     * @param value 
-     * @param row 
-     * @param col 
+     * @param int new Number value 
+     * @param int row 
+     * @param int column 
      */
     void Block::set_value(int value, int row, int col) { boxes[row][col].set_value(value); }
 
     /**
-     * @brief 
+     * @brief Change specific Box Hover Status
      * 
-     * @param status 
-     * @param row 
-     * @param col 
-     * @return true 
-     * @return false 
+     * @param bool hover status 
+     * @param int row 
+     * @param int column 
+     * @return true | false 
      */
     void Block::set_hover(bool status, int row, int col) { boxes[row][col].set_hovering(status); }
 
     /**
-     * @brief 
+     * @brief Returns whether number exists in the following block
      * 
-     * @param val 
-     * @return true 
-     * @return false 
+     * @param int Number Val 
+     * @return true | false 
      */
     bool Block::check_valid_block_entry(int val) {
         for (int row = 0; row < DIM; row++)
@@ -76,12 +74,11 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Returns whether number exists at given row
      * 
-     * @param val 
-     * @param row 
-     * @return true 
-     * @return false 
+     * @param int number value 
+     * @param int row 
+     * @return true | false 
      */
     bool Block::check_valid_row_entry(int val, int row) {
         for (int col = 0; col < DIM; col++)
@@ -91,12 +88,11 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Returns whether number exists at given column
      * 
-     * @param val 
-     * @param col 
-     * @return true 
-     * @return false 
+     * @param int number value 
+     * @param int column 
+     * @return true | false 
      */
     bool Block::check_valid_col_entry(int val, int col) {
         for (int row = 0; row < DIM; row++)

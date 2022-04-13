@@ -17,27 +17,33 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Draws Box and Number as Text onto Screen
      * 
-     * @param window 
+     * @param sf::RenderWindow& Object 
      */
     void Box::draw(sf::RenderWindow& window) {
+        // Load Font for text
         sf::Font arial;
         arial.loadFromFile("arial.ttf");
 
-        std::string value = "_";
+        std::string value = "_";    // Default Text String
 
+        // Overwrite Text String if number isn't 0
         if (num != 0) value = std::to_string(num);
 
+        // Create Text Object
         sf::Text number(value, arial, TEXT_SIZE);
         number.setCharacterSize(TEXT_SIZE);
         
+        // If Box is being hovered Text color is Yellow otherwise Black
         if (hovering) number.setFillColor(sf::Color::Yellow);
         else number.setFillColor(sf::Color::Black);
 
+        // Set Text Style and Position
         number.setStyle(sf::Text::Bold);
         number.setPosition(box.getPosition().x + (BOX_DIM/4), box.getPosition().y - (BOX_DIM/7));
 
+        // Draw Box and Text onto screen
         window.draw(box);
         window.draw(number);
     }
@@ -45,7 +51,7 @@ namespace Sudoku {
     /**
      * @brief Returns current Box number
      * 
-     * @return box number 
+     * @return int Box Number 
      */
     int Box::get_value() {
         return num;
@@ -61,9 +67,9 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Overwrites hovering status of box
      * 
-     * @param status 
+     * @param bool hovering status 
      */
     void Box::set_hovering(bool status) { hovering = status; }
 

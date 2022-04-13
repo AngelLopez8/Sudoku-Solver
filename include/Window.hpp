@@ -15,7 +15,7 @@ namespace Sudoku {
         private:
             World world;    // World Instance
 
-            bool paused;
+            bool paused;    // Paused status
 
             // Handle Window Events
             void event_handle();

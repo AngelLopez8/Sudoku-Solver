@@ -32,11 +32,11 @@ namespace Sudoku {
             friend std::ostream& operator<<(std::ostream&, const Box&);
 
         private:
-            int num;
-            int xCoordinate, yCoordinate;
+            int num;    // Current Box Number
+            int xCoordinate, yCoordinate;   // Coordinates of box
 
-            sf::RectangleShape box;
-            bool hovering;
+            sf::RectangleShape box; // Box object
+            bool hovering;  // hovering status
     };
 }
 

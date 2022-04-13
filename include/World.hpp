@@ -26,7 +26,7 @@ namespace Sudoku {
             // Change number of box
             void change_number(int);
 
-            //
+            // Handles Grid navigation
             void move_left();
             void move_right();
             void move_up();
@@ -36,11 +36,12 @@ namespace Sudoku {
             friend std::ostream& operator<<(std::ostream&, const World&);
             
         private:
-            Block **grid;
+            Block **grid;   // Game Grid
 
-            int currentBlockRow, currentBlockCol;
-            int currentBoxRow, currentBoxCol;
+            int currentBlockRow, currentBlockCol;   // Current Hovered Block row & col
+            int currentBoxRow, currentBoxCol;   // Current Hovered Box row & col
 
+            // Dynamic Array holding sudoku solution
             int solution[BLOCK_DIM][BLOCK_DIM][DIM*DIM] = {
                 {
                     {
@@ -95,6 +96,7 @@ namespace Sudoku {
                 }
             };
 
+            // Generates data for grid
             void generate_data();
     };
 }

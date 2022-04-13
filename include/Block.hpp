@@ -26,18 +26,20 @@ namespace Sudoku {
             // Change hovering status of Box
             void set_hover(bool, int, int);
 
+            // Check if number exists in block
             bool check_valid_block_entry(int);
 
+            // Check if number exists in specific row
             bool check_valid_row_entry(int, int);
 
+            // Check if number exists in specific col
             bool check_valid_col_entry(int, int);
 
             // Overloaded Output Operator
             friend std::ostream& operator<<(std::ostream&, const Block&);
 
         private:
-            Box **boxes;
-            int blockSize;
+            Box **boxes;    // Dynamic Array of boxes
     };
 }
 

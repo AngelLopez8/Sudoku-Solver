@@ -15,11 +15,12 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Draws Border and Grid onto Screen
      * 
-     * @param window 
+     * @param sf::RenderWindow& Window Object 
      */
     void World::draw(sf::RenderWindow& window) {
+        // Draws Vertical Borders onto Screen
         sf::RectangleShape bordersV[4];
 
         for (int i = 0; i < 4; i++) {
@@ -32,6 +33,7 @@ namespace Sudoku {
             window.draw(bordersV[i]);
         }
 
+        // Draws Horizontal Borders onto Screen
         sf::RectangleShape bordersH[4];
 
         for (int i = 0; i < 4; i++) {
@@ -44,16 +46,16 @@ namespace Sudoku {
             window.draw(bordersH[i]);
         }
 
+        // Draws Blocks onto Screen
         for (int row = 0; row < BORDER_DIM; row++)
             for (int col = 0; col < BORDER_DIM; col++)
                 grid[row][col].draw(window);
     }
 
     /**
-     * @brief 
+     * @brief Returns whether Grid Matches solution (meaning board is solved)
      * 
-     * @return true 
-     * @return false 
+     * @return true | false 
      */
     bool World::solved() {
         for (int blockRow = 0; blockRow < BLOCK_DIM; blockRow++)
@@ -66,14 +68,18 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Changes Box Number at current Hovered Location
      * 
-     * @param value 
+     * @param int new Number Value 
      */
     void World::change_number(int value) {
         grid[currentBlockRow][currentBlockCol].set_value(value, currentBoxRow, currentBoxCol);
     }
 
+    /**
+     * @brief Moves Hover Location left one box
+     * 
+     */
     void World::move_left() {
         grid[currentBlockRow][currentBlockCol].set_hover(false, currentBoxRow, currentBoxCol);
         if (currentBoxCol - 1 == -1) {
@@ -88,6 +94,10 @@ namespace Sudoku {
         // std::cout << "HOVERING: #" << grid[currentBlockRow][currentBlockCol].get_value(currentBoxRow, currentBoxCol) << std::endl;
     }
 
+    /**
+     * @brief Moves Hover Location Right one box
+     * 
+     */
     void World::move_right() {
         grid[currentBlockRow][currentBlockCol].set_hover(false, currentBoxRow, currentBoxCol);
         if (currentBoxCol + 1 == 3) {
@@ -102,6 +112,10 @@ namespace Sudoku {
         // std::cout << "HOVERING: #" << grid[currentBlockRow][currentBlockCol].get_value(currentBoxRow, currentBoxCol) << std::endl;
     }
 
+    /**
+     * @brief Moves Hover Location Up one box
+     * 
+     */
     void World::move_up() {
         grid[currentBlockRow][currentBlockCol].set_hover(false, currentBoxRow, currentBoxCol);
         if (currentBoxRow - 1 == -1) {
@@ -116,6 +130,10 @@ namespace Sudoku {
         // std::cout << "HOVERING: #" << grid[currentBlockRow][currentBlockCol].get_value(currentBoxRow, currentBoxCol) << std::endl;
     }
 
+    /**
+     * @brief Moves Hover Location Down one box
+     * 
+     */
     void World::move_down() {
         grid[currentBlockRow][currentBlockCol].set_hover(false, currentBoxRow, currentBoxCol);
         if (currentBoxRow + 1 == 3) {
@@ -131,7 +149,7 @@ namespace Sudoku {
     }
 
     /**
-     * @brief 
+     * @brief Handles Data Generation by populating grid
      * 
      */
     void World::generate_data() {
