@@ -12,6 +12,8 @@ namespace Sudoku {
         currentBoxCol = 0;
 
         generate_data();
+
+        solved = false;
     }
 
     /**
@@ -53,18 +55,73 @@ namespace Sudoku {
     }
 
     /**
-     * @brief Returns whether Grid Matches solution (meaning board is solved)
+     * @brief 
      * 
-     * @return true | false 
+     * @param blockRow 
+     * @param blockCol 
+     * @param boxRow 
+     * @param boxCol 
+     * @param num 
+     * @return true 
+     * @return false 
      */
-    bool World::solved() {
-        for (int blockRow = 0; blockRow < BLOCK_DIM; blockRow++)
-            for (int blockCol = 0; blockCol < BLOCK_DIM; blockCol++)
-                for (int boxRow = 0; boxRow < DIM; boxRow++)
-                    for (int boxCol = 0; boxCol < DIM; boxCol++)
-                        if (grid[blockRow][blockCol].get_value(boxRow, boxCol) != solution[blockRow][blockCol][boxCol + (boxRow*DIM)])
-                            return false;
+    bool World::is_safe(int blockRow, int blockCol, int boxRow, int boxCol, int num) {
+
+        for (int BCol = 0; BCol < BLOCK_DIM; BCol++)
+            for (int bCol = 0; bCol < DIM; bCol++)
+                if (grid[blockRow][BCol].get_value(boxRow, bCol) == num) return false;
+        
+        for (int BRow = 0; BRow < BLOCK_DIM; BRow++)
+            for (int bRow = 0; bRow < DIM; bRow++)
+                if (grid[BRow][blockCol].get_value(bRow, boxCol) == num) return false;
+
+        if (!grid[blockRow][blockCol].check_valid_block_entry(num)) return false;
+
         return true;
+    }
+
+    /**
+     * @brief 
+     * 
+     * @param blockRow 
+     * @param blockCol 
+     * @param boxRow 
+     * @param boxCol 
+     * @return true 
+     * @return false 
+     */
+    bool World::solve(int blockRow, int blockCol, int boxRow, int boxCol) {
+        if (blockRow == 2 && blockCol == 2 && boxRow == DIM-1 && boxCol == DIM) return true;
+
+        if (boxCol == DIM) {
+            if (blockCol + 1 == DIM) {
+                if (boxRow + 1 == DIM) {
+                    blockRow++;
+                    blockCol = 0;
+                    boxRow = 0;
+                    boxCol = 0;
+                } else {
+                    boxRow++;
+                    blockCol = 0;
+                    boxCol = 0;
+                }
+            } else {
+                blockCol++;
+                boxCol = 0;
+            }
+        }
+        
+        if (grid[blockRow][blockCol].get_value(boxRow, boxCol) > 0) return solve(blockRow, blockCol, boxRow, boxCol+1);
+
+        for (int num = 1; num <= (DIM*DIM); num++) {
+            if (is_safe(blockRow, blockCol, boxRow, boxCol, num)) {
+                grid[blockRow][blockCol].set_value(num, boxRow, boxCol);
+
+                if (solve(blockRow, blockCol, boxRow, boxCol+1)) return true;
+            }
+            grid[blockRow][blockCol].set_value(0, boxRow, boxCol);
+        }
+        return false;
     }
 
     /**

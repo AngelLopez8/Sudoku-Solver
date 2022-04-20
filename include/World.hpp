@@ -10,7 +10,6 @@
 #define BORDER_DIM 3
 #define BLOCK_DIM 3
 
-
 namespace Sudoku {
     class World {
         public:
@@ -20,8 +19,11 @@ namespace Sudoku {
             // Draw Grid onto Screen
             void draw(sf::RenderWindow&);
 
-            // Return if grid matches solution
-            bool solved();
+            // Checks if entry is safe
+            bool is_safe(int, int, int, int, int);
+
+            // Solves Sudoku Board
+            bool solve(int, int, int, int);
 
             // Change number of box
             void change_number(int);
@@ -35,6 +37,8 @@ namespace Sudoku {
             // Overloaded Output Operator
             friend std::ostream& operator<<(std::ostream&, const World&);
             
+            // If Grid is solved
+            bool solved;
         private:
             Block **grid;   // Game Grid
 

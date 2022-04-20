@@ -55,7 +55,8 @@ namespace Sudoku {
                 if (event.key.code == sf::Keyboard::Space)
                     std::cout << world;
                 if (event.key.code == sf::Keyboard::Enter) {
-                    std::cout << world.solved() << std::endl;
+                    std::cout << world.solve(0, 0, 0, 0) << std::endl;
+                    world.solved = true;
                 }
                 if (event.key.code == sf::Keyboard::Up)
                     world.move_up();
@@ -95,7 +96,8 @@ namespace Sudoku {
      * 
      */
     void Window::update() {
-
+        if (world.solved) {
+        }
     }
 
     /**
